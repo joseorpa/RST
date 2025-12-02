@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>RST Control Plane</title>
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script> 
+    <style>
+        body { font-family: sans-serif; background: #222; color: #fff; padding: 20px; }
+        .card { background: #333; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; cursor: pointer; }
+        button.danger { background: #dc3545; }
+    </style>
+</head>
+<body>
+    <h1>RST: Router Stress Test</h1>
+
+    <div class="card">
+        <h2>OpenShift Router Config</h2>
+        <p>Modify the live IngressController configuration.</p>
+        
+        <button class="danger" hx-post="/router/scale" hx-swap="innerHTML" hx-target="#router-status">
+            Scale/Patch Router
+        </button>
+        <div id="router-status" style="margin-top: 10px; color: yellow;">Waiting for action...</div>
+    </div>
+
+    <div class="card">
+        <h2>Load Generation (k6)</h2>
+        <button hx-post="/test/start" hx-swap="innerHTML" hx-target="#test-status">
+            Start k6 Attack
+        </button>
+        <div id="test-status" style="margin-top: 10px; color: lightgreen;">Idle</div>
+    </div>
+</body>
+</html>
